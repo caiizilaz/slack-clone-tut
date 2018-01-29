@@ -1,11 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import path from 'path';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 
 import models from './models';
+
+const SECRET = 'a7fkaa'
+const SECRET2 = 'a7fkaajdx'
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
@@ -18,6 +22,7 @@ const schema = makeExecutableSchema({
 const PORT = 8080;
 
 var app = express();
+app.use(cors('*'))
 
 const graphqlEndpoint = '/graphql';
 
@@ -27,7 +32,9 @@ app.use(graphqlEndpoint, bodyParser.json(), graphqlExpress({
     models,
     user: {
       id: 1
-    }
+    },
+    SECRET,
+    SECRET2,
   },
 }));
 

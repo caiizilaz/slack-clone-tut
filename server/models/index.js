@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-
+const Op = Sequelize.Op;
 const sequelize = new Sequelize('slack', 'postgres', 'root', {
   dialect: 'postgres',
   define: {
