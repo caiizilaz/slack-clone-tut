@@ -28,7 +28,7 @@ app.use(cors('*'))
 
 const addUser = async (req, res, next) => {
   const token = req.headers['xtoken'];
-  console.log(`token: ${req.headers['xtoken']},${req.headers['xrefreshtoken']}`)
+  // console.log(`token: ${req.headers['xtoken']},${req.headers['xrefreshtoken']}`)
   if (token) {
     try {
       const { user } = jwt.verify(token, SECRET);
@@ -36,6 +36,7 @@ const addUser = async (req, res, next) => {
     } catch (err) {
       const refreshToken = req.headers['xrefreshtoken'];
       const newTokens = await refreshTokens(token, refreshToken, models, SECRET, SECRET2);
+      console.log(newTokens)
       if (newTokens.token && newTokens.refreshToken) {
         res.set('Access-Control-Expose-Headers', 'xtoken, xrefreshtoken');
         res.set('xtoken', newTokens.token);
