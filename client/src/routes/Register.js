@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Header, Input, Button, Message } from 'semantic-ui-react'
+import { Container, Header, Input, Button, Message, Form } from 'semantic-ui-react'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -44,20 +44,30 @@ class Register extends Component {
   render() {
     const { username, email, password, usernameError, emailError, passwordError } = this.state
     const errorList = []
-    if(usernameError) errorList.push(usernameError)
-    if(emailError) errorList.push(emailError)
-    if(passwordError) errorList.push(passwordError)
+    if (usernameError) errorList.push(usernameError)
+    if (emailError) errorList.push(emailError)
+    if (passwordError) errorList.push(passwordError)
     return (
       <Container text>
         <Header as='h2'>Register</Header>
-        <Input error={!!usernameError} name="username" onChange={this.onChange} value={username} fluid placeholder='Username' />
-        <Input error={!!emailError} name="email" onChange={this.onChange} value={email} fluid placeholder='Email' />
-        <Input error={!!passwordError} name="password" onChange={this.onChange} value={password} type="password" fluid placeholder='Password' />
-        <Button onClick={this.onSubmit}>Submit</Button>
-        {(usernameError || emailError || passwordError)
-          ? (<Message error header="There was some errors with your register" list={errorList}></Message>)
-          : null}
-      </Container>
+        <Form>
+          <Form.Field error={!!usernameError}>
+            <Input name="username" onChange={this.onChange} value={username} fluid placeholder='Username' />
+          </Form.Field>
+          <Form.Field error={!!emailError}>
+            <Input name="email" onChange={this.onChange} value={email} fluid placeholder='Email' />
+          </Form.Field>
+          <Form.Field error={!!passwordError}>
+            <Input name="password" onChange={this.onChange} value={password} type="password" fluid placeholder='Password' />
+          </Form.Field >
+          <Button onClick={this.onSubmit}>Submit</Button>
+        </Form >
+        {
+          (errorList.length)
+            ? (<Message error header="There was some errors with your register" list={errorList}></Message>)
+            : null
+        }
+      </Container >
     )
   }
 }
