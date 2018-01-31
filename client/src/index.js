@@ -24,7 +24,6 @@ const middlewareLink = new ApolloLink((operation, forward) => {
 });
 
 const afterwareLink = new ApolloLink((operation, forward) => {
-  console.log(forward(operation))
   return forward(operation).map((response) => {
     
     const context = operation.getContext();
