@@ -1,26 +1,26 @@
-import React from 'react'
-import { Grid, Container } from 'semantic-ui-react'
+import React from 'react';
+import Channels from '../components/Channels'
+import Teams from '../components/Teams'
+import Header from '../components/Header'
+import Messages from '../components/Messages'
+import Input from '../components/Input'
+import AppLayout from '../components/AppLayout'
 
-import MessageInput from '../components/MessageInput'
-import TeamHeader from '../components/TeamHeader'
-import TeamSidebar from '../components/TeamSidebar'
+const ViewTeam = () => (
+  <AppLayout>
+    <Teams>Teams</Teams>
+    <Channels>Channels</Channels>
+    <Header>Header</Header>
+    <Messages>
+      <ul class="message-list">
+        <li></li>
+        <li></li>
+      </ul>
+    </Messages>
+    <Input>
+      <input type="text" placeholder="CSS Grid Layout Module" />
+    </Input>
+  </AppLayout>
+);
 
-export default () => (
-  <Container>
-    <Grid>
-      <Grid.Row>
-        <Grid.Column width={5}>
-          <TeamSidebar
-            teamName="Bob Is Cool"
-            username="Bob the first"
-            channelNames={['kk', 'aa']}
-            userToDM={['test', 'random']} />
-        </Grid.Column>
-        <Grid.Column width={11}>
-          <TeamHeader />
-          <MessageInput />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Container>
-)
+export default ViewTeam;
